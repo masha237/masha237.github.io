@@ -30,6 +30,15 @@ public class PostService {
 
     public Post write(PostForm postForm, User user) {
         Post newPost = new Post();
+        if (postForm.getTitle().length() > 100) {
+            throw new ValidationException("Title too long");
+        }
+        if (postForm.getText().length() > (1 << 16)) {
+            throw new ValidationException("Text too long");
+        }
+        if (postForm.getImage().getName().length() > 100) {
+            throw new ValidationException("File name too long");
+        }
         newPost.setUser(user);
         newPost.setTitle(postForm.getTitle());
         newPost.setText(postForm.getText());

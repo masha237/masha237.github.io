@@ -50,6 +50,26 @@ public class UserService {
         if (registerForm.getAge() < 0) {
             throw new ValidationException("Invalid age");
         }
+        if (registerForm.getCity().length() > 100) {
+            throw new ValidationException("City too long");
+        }
+        if (registerForm.getUniversity().length() > 100) {
+            throw new ValidationException("University too long");
+        }
+        if (registerForm.getUsername().length() > 100) {
+            throw new ValidationException("Name too long");
+        }
+        if (registerForm.getLogin().length() > 100) {
+            throw new ValidationException("Login too long");
+        }
+        if (registerForm.getPassword().length() > 256) {
+            throw new ValidationException("Password too long");
+        }
+        if (registerForm.getAvatar().getName().length() > 100) {
+            throw new ValidationException("File name too long");
+        }
+
+
 
         User newUser = new User();
         UserInfo newUserInfo = new UserInfo();

@@ -5,6 +5,7 @@
     background: var(--mainBGColor);
     color: var(--headerColor);
     font-weight: bold;
+    word-wrap: normal;
 }
 
 button image {

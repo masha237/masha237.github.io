@@ -100,6 +100,15 @@ const UserPage = ({jwt0, setFriends}:Props) => {
 
 
         data.jwt = jwt0.jwt;
+        if (data.title.length > 100) {
+            setError("Title too long");
+        }
+        if (data.text.length > (1 << 16)) {
+            setError("Text too long");
+        }
+        if (data.image && data.image.name.length > 100) {
+            setError("File name too long");
+        }
         PostService.write(data).then((response: IResponse<IPost>) => {
             if (response.error === null) {
                 setNeedReloadPosts(true);
@@ -177,17 +186,23 @@ const UserPage = ({jwt0, setFriends}:Props) => {
                                     accept="image/png,image/jpeg,image/jpg"
                                     maxCount={1}
                                     beforeUpload={(file) => {
-                                        if(file.size && file.size > 1097152){
-                                            alert("File is too big!");
-                                            return true;
+                                        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+                                        if (!isJpgOrPng) {
+                                            alert('You can only upload JPG/PNG file!');
                                         }
-                                        setFile(file);
-                                        return false;
+                                        const isLt2M = file.size / 1024 / 1024 < 1;
+                                        if (!isLt2M) {
+                                            alert('Image must smaller than 1MB!');
+                                        }
+                                        if (isLt2M && isJpgOrPng) {
+                                            setFile(file);
+                                        }
+                                        return isJpgOrPng && isLt2M;
                                     }}
                                     onRemove={handleRemove}
 
                                 >
-                                    <Button>Click Upload avatar</Button>
+                                    <Button>Click Upload Image</Button>
                                 </Upload>
                             </Form.Item>
                             <Form.Item wrapperCol={{offset: 2}}>

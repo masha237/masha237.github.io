@@ -20,8 +20,12 @@ public class Post {
     private Date creationTime;
 
     @NotEmpty
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 100)
     private String title;
+
+    @NotEmpty
+    @Size(min = 1, max = (1 << 16))
+    private String text;
 
     @Size(min = 0, max = 100)
     private String fileName;
@@ -43,9 +47,7 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "users_id"))
     private Set<User> likes = new LinkedHashSet<>();
 
-    @NotEmpty
-    @Size(min = 1, max = 32)
-    private String text;
+
 
     public Set<User> getLikes() {
         return likes;

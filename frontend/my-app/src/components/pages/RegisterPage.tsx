@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import AuthService from "../../Utils/AuthService";
 import {Button, Form, Input, InputNumber, Upload, UploadFile, UploadProps} from "antd";
@@ -18,6 +18,27 @@ const RegisterPage: React.FC = () => {
             setFile(null)
         } else {
             data.avatar = undefined
+        }
+        if (data.age < 0) {
+            setError("Invalid age");
+        }
+        if (data.city.length > 100) {
+            setError("City too long");
+        }
+        if (data.university.length > 100) {
+            setError("University too long");
+        }
+        if (data.username.length > 100) {
+            setError("Name too long");
+        }
+        if (data.login.length > 100) {
+            setError("Login too long");
+        }
+        if (data.password.length > 256) {
+            setError("Password too long");
+        }
+        if (data.avatar && data.avatar.name.length > 100) {
+            setError("File name too long");
         }
         AuthService.register(data).then((response:IResponse<IUser>) => {
             if (response.error === null) {
@@ -71,12 +92,18 @@ const RegisterPage: React.FC = () => {
                     accept="image/png,image/jpeg,image/jpg"
                     maxCount={1}
                     beforeUpload={(file) => {
-                        if(file.size && file.size > 1097152){
-                            alert("File is too big!");
-                            return true;
+                        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+                        if (!isJpgOrPng) {
+                            alert('You can only upload JPG/PNG file!');
                         }
-                        setFile(file);
-                        return false;
+                        const isLt2M = file.size / 1024 / 1024 < 1;
+                        if (!isLt2M) {
+                            alert('Image must smaller than 1MB!');
+                        }
+                        if (isLt2M && isJpgOrPng) {
+                            setFile(file);
+                        }
+                        return isJpgOrPng && isLt2M;
                     }}
                     onRemove={handleRemove}
                 >

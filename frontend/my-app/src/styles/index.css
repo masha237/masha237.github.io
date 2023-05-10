@@ -1,6 +1,7 @@
 * {
     margin: 0;
     font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
+    word-wrap: break-word;
 }
 
 :root {

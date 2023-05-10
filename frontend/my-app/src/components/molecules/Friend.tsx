@@ -57,6 +57,9 @@ const Friend = ( {user, jwt0, setFriends}:Props ) => {
                 <div className="friend-university">
                     {user.userInfo.university}
                 </div>
+
+            </div>
+            <div className="add-del-friend-button">
                 {myLogin !== user.login && user.login && isFriends &&
                     <DeleteButton login={user.login} jwt0={jwt0} setFriends={setFriends} setIsFriends={setIsFriends}/>
                 }
@@ -64,7 +67,6 @@ const Friend = ( {user, jwt0, setFriends}:Props ) => {
                     <AddButton login={user.login} jwt0={jwt0} setFriends={setFriends} setIsFriends={setIsFriends}/>
                 }
             </div>
-
         </div>
     );
 };
