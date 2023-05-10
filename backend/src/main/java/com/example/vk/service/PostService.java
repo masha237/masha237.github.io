@@ -36,7 +36,7 @@ public class PostService {
         if (postForm.getText().length() > (1 << 16)) {
             throw new ValidationException("Text too long");
         }
-        if (postForm.getImage().getName().length() > 100) {
+        if (postForm.getImage() != null && postForm.getImage().getName().length() > 100) {
             throw new ValidationException("File name too long");
         }
         newPost.setUser(user);

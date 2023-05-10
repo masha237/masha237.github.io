@@ -65,7 +65,7 @@ public class UserService {
         if (registerForm.getPassword().length() > 256) {
             throw new ValidationException("Password too long");
         }
-        if (registerForm.getAvatar().getName().length() > 100) {
+        if (registerForm.getAvatar() != null && registerForm.getAvatar().getName().length() > 100) {
             throw new ValidationException("File name too long");
         }
 
