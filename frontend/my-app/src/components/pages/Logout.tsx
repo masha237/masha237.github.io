@@ -7,6 +7,7 @@ const Logout = (jwt0:Jwt) => {
     useEffect(() => {
         AuthService.logout();
         jwt0.setJwt(null);
+        localStorage.removeItem("login");
     }, [jwt0]);
 
     return (
