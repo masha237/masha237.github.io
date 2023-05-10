@@ -9,9 +9,7 @@ import com.example.vk.service.JwtService;
 import com.example.vk.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/post")

@@ -19,7 +19,7 @@ public class User {
     private String login;
 
     @NotEmpty
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 256)
     private String password;
 
     @Id

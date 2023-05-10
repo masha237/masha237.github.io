@@ -23,6 +23,7 @@ const Sidebar = (jwtO:Jwt) => {
         <div id="sidebar">
             <Link to={'/user/'+ (login ? login : "")} className="link"> Моя Страница</Link>
             <Link to={"/friends"} className="link"> Мои Друзья</Link>
+            <Link to={"/people"} className="link"> Люди</Link>
             <Link to={"/"} className="link"> Мои Новости</Link>
         </div>
     );

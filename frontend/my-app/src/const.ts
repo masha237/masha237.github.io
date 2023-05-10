@@ -1,5 +1,5 @@
 
-export const API_URL = "https://vk.perveevm.ru/api/"
+export const API_URL = "https://vk.perveevm.ru/"
 
 export const AUTH = "auth/"
 export const LOGIN = "login"
@@ -14,6 +14,7 @@ export const POSTS = "posts";
 export const ADD_FRIEND = "addFriend";
 export const DELETE_FRIEND = "deleteFriend";
 export const FILE = "file";
+export const PEOPLE = "getPeople";
 
 export const POST = "post/"
 export const WRITE = "write"

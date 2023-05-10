@@ -78,7 +78,7 @@ export const Post = ( {post, jwt0}:Props ) => {
         <div className="post">
             <div className="post-author-avatar">
                 {avatar && <img src={"data:image/" + avatar.type + ";base64," + avatar.base64} alt="avatar"/>}
-                {!avatar && <img src="/camera_200.png" alt="avatar"/>}
+                {!avatar && <img src={process.env.PUBLIC_URL + "/camera_200.png"} alt="avatar"/>}
             </div>
             <div className="second-column-post">
                 <div className="post-author">
@@ -96,7 +96,7 @@ export const Post = ( {post, jwt0}:Props ) => {
 
                 <div className="button">
                     <div className="count-likes">{likes ? likes : 0}</div>
-                    <img onClick={like} src="/heart-svgrepo-com.svg" alt="like" style={{filter: getFilter()}}/>
+                    <img onClick={like} src={process.env.PUBLIC_URL + "/heart-svgrepo-com.svg"} alt="like" style={{filter: getFilter()}}/>
                     <div className="post-creation-time">
                         {formatTime(post.creationTime)}
                     </div>

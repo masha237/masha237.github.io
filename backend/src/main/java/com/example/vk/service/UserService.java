@@ -10,18 +10,25 @@ import com.example.vk.repository.UserRepository;
 import com.example.vk.utils.FileUploadUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class UserService {
     UserRepository userRepository;
+    private static final String PASSWORD_SALT = "secret salt";
+
 
     public UserService(UserRepository userRepository) {
+
         this.userRepository = userRepository;
+
+    }
+
+    public List<User> getPeople() {
+        return userRepository.findAll();
     }
 
     public Optional<User> findById(long id) {
@@ -29,7 +36,7 @@ public class UserService {
     }
 
     public Optional<User> findByLoginAndPassword(LoginForm loginForm) {
-        return userRepository.findByLoginAndPassword(loginForm.getLogin(), loginForm.getPassword());
+        return  userRepository.findByLoginAndPassword(loginForm.getLogin(), getPasswordSha(loginForm.getPassword()));
     }
 
     public Optional<User> findByLogin(String login) {
@@ -55,7 +62,7 @@ public class UserService {
             newUserInfo.setFileName(fileName);
         }
         newUser.setLogin(registerForm.getLogin());
-        newUser.setPassword(registerForm.getPassword());
+        newUser.setPassword(getPasswordSha(registerForm.getPassword()));
         newUser.setUserInfo(newUserInfo);
         try {
             User savedUser = userRepository.save(newUser);
@@ -86,5 +93,7 @@ public class UserService {
         userRepository.save(first);
     }
 
-
+    private String getPasswordSha(String password) {
+        return /*Hashing.sha256().hashBytes((PASSWORD_SALT + password).getBytes(StandardCharsets.UTF_8)).toString()*/ password;
+    }
 }

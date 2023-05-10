@@ -9,9 +9,9 @@ import com.example.vk.service.JwtService;
 import com.example.vk.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/user")
@@ -58,6 +58,15 @@ public class UserController {
         friendsPost.sort(Comparator.comparing(Post::getCreationTime).reversed());
         return ResponseEntity.ok(friendsPost);
     }
+
+    @GetMapping("getPeople")
+    public ResponseEntity<?> getPeople(@RequestParam String login) {
+        List<User> users = userService.getPeople();
+        User user = userService.findByLogin(login).orElseThrow(() -> new ValidationException("you aren't authorized"));
+        users.remove(user);
+        return ResponseEntity.ok(users);
+    }
+
 
     @GetMapping("posts")
     public ResponseEntity<?> getPosts(@RequestParam String login) {

@@ -10,6 +10,7 @@ import NotFoundPage from "./components/pages/NotFoundPage";
 import Logout from "./components/pages/Logout";
 import {IUser} from "./types/IUser";
 import {Jwt} from "./types/Jwt";
+import People from "./components/pages/People";
 
 const App: React.FC = () => {
     const [jwt, setJwt] = useState<string | null>(null);
@@ -27,6 +28,7 @@ const App: React.FC = () => {
 
                     <Route index element={<IndexPage jwt0={jwt0}/>}/>
                     <Route path="friends" element={<Friends jwt0={jwt0} friends={friends} setFriends={setFriends}/>}/>
+                    <Route path="people" element={<People jwt0={jwt0} friends={friends} setFriends={setFriends}/>}/>
                     <Route path="logout" element={<Logout jwt={jwt} setJwt={setJwt}/>}/>
                     <Route path="user/:login" element={<UserPage  jwt0={jwt0} setFriends={setFriends}/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>

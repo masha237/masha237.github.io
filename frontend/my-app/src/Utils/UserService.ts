@@ -1,5 +1,17 @@
 import axios, {AxiosError} from "axios";
-import {ADD_FRIEND, API_URL, DELETE_FRIEND, FILE, FRIENDS, FRIENDS_POST, LOGIN, POSTS, USER, USERINFO} from "../const";
+import {
+    ADD_FRIEND,
+    API_URL,
+    DELETE_FRIEND,
+    FILE,
+    FRIENDS,
+    FRIENDS_POST,
+    LOGIN,
+    PEOPLE,
+    POSTS,
+    USER,
+    USERINFO
+} from "../const";
 import {IPost} from "../types/IPost";
 import {IUser} from "../types/IUser";
 import IResponse from "../types/IResponse";
@@ -28,7 +40,7 @@ export class UserService {
                     data: null,
                     error: "fail"
                 }
-            }).catch((e: Error) => {
+            }).catch(() => {
                 return <IResponse<IUserData>>{
                     data: null,
                     error: "fail"
@@ -126,7 +138,7 @@ export class UserService {
                     data: null,
                     error: "fail"
                 }
-            }).catch((err: Error) => {
+            }).catch(() => {
                 return <IResponse<string | null>>{
                     data: null,
                     error: "fail"
@@ -136,6 +148,27 @@ export class UserService {
 
     static getFriends (login: String) {
         return axios.get<Array<IUser>>(API_URL + USER + FRIENDS, {params:{login: login}})
+            .then(response => {
+                return <IResponse<Array<IUser>>>{
+                    data: response.data,
+                    error: null
+                }
+            }).catch((err: AxiosError) => {
+                if (err.response) {
+                    return <IResponse<Array<IUser>>>{
+                        data: null,
+                        error: err.response.data as String
+                    }
+                }
+                return <IResponse<Array<IUser>>>{
+                    data: null,
+                    error: "fail"
+                }
+            });
+    }
+
+    static getPeople (login: String) {
+        return axios.get<Array<IUser>>(API_URL + USER + PEOPLE, {params:{login: login}})
             .then(response => {
                 return <IResponse<Array<IUser>>>{
                     data: response.data,
