@@ -19,26 +19,28 @@ const RegisterPage: React.FC = () => {
         } else {
             data.avatar = undefined
         }
+        setError(null);
         if (data.age < 0) {
             setError("Invalid age");
+            return
         }
         if (data.city.length > 100) {
-            setError("City too long");
+            setError("City too long");return
         }
         if (data.university.length > 100) {
-            setError("University too long");
+            setError("University too long");return
         }
         if (data.username.length > 100) {
-            setError("Name too long");
+            setError("Name too long");return
         }
         if (data.login.length > 100) {
-            setError("Login too long");
+            setError("Login too long");return
         }
         if (data.password.length > 256) {
-            setError("Password too long");
+            setError("Password too long");return
         }
         if (data.avatar && data.avatar.name.length > 100) {
-            setError("File name too long");
+            setError("File name too long");return
         }
         AuthService.register(data).then((response:IResponse<IUser>) => {
             if (response.error === null) {
@@ -100,10 +102,11 @@ const RegisterPage: React.FC = () => {
                         if (!isLt2M) {
                             alert('Image must smaller than 1MB!');
                         }
+                        console.log(isLt2M && isJpgOrPng)
                         if (isLt2M && isJpgOrPng) {
                             setFile(file);
                         }
-                        return isJpgOrPng && isLt2M;
+                        return !(isJpgOrPng && isLt2M);
                     }}
                     onRemove={handleRemove}
                 >

@@ -101,13 +101,13 @@ const UserPage = ({jwt0, setFriends}:Props) => {
 
         data.jwt = jwt0.jwt;
         if (data.title.length > 100) {
-            setError("Title too long");
+            setError("Title too long");return
         }
         if (data.text.length > (1 << 16)) {
-            setError("Text too long");
+            setError("Text too long");return
         }
         if (data.image && data.image.name.length > 100) {
-            setError("File name too long");
+            setError("File name too long");return
         }
         PostService.write(data).then((response: IResponse<IPost>) => {
             if (response.error === null) {
