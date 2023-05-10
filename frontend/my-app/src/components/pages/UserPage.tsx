@@ -197,7 +197,7 @@ const UserPage = ({jwt0, setFriends}:Props) => {
                                         if (isLt2M && isJpgOrPng) {
                                             setFile(file);
                                         }
-                                        return isJpgOrPng && isLt2M;
+                                        return !(isJpgOrPng && isLt2M);
                                     }}
                                     onRemove={handleRemove}
 
